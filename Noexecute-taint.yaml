@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: no-execute
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: con1
+    image: nginx:latest
+    ports: 
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"    
+  tolerations:
+    - key: "color"
+      operator: "Equal"
+      value: "green"
+      effect: "NoExecute"
+
