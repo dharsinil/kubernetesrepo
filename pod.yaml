@@ -1,17 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: node-selector
+  name: pod
   labels:
-    app: myapp
+    app: newapp
 spec:
   containers:
   - name: con1
     image: nginx:latest
     ports: 
     - containerPort: 80
-  nodeSelector:
-      cpu: green
 
 
 ---
