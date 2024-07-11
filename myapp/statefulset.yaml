@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stateful-svc
+spec:
+  ports:
+  - port: 80
+  clusterIP: None
+  selector:
+    app: myapp
+
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: myapp 
+  serviceName: "stateful-svc"
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: myapp 
+    spec:
+      containers:
+      - name: con1
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mydep-svc
+spec:
+  selector: 
+    app: myapp
+  ports:
+  - port: 80
